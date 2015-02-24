@@ -107,13 +107,10 @@ public function keyDown(event:KeyboardEvent ){
               //Remove the specified character from the stage            
               rootSprite.removeChild(characterArray[counter], true);
               //Remove that same character from the array using a splice method
-              characterArray = null;
-              //Remove the equation from the stage
-              Starling.current.nativeOverlay.removeChild(equationArray[counter]);
-              //Remove the same equation from that array
-              equationArray= null;
-              //Remove the position of that character/equation from the array
-              positionArray= null;
+              characterArray.splice(counter, 1);
+            Starling.current.nativeOverlay.removeChild(equationArray[counter]);
+             equationArray.splice(counter, 1);
+             positionArray.splice(counter, 1);
               //Increment score by 10
               totalScore += 10;
               //Generate a new box
@@ -143,7 +140,6 @@ private function generateNewBox(){
     var character: Image = new Image(Root.assets.getTexture("character1"));
     //Randomly generate a new point on the x-axis for the character
     var randomX = Math.round(Math.random() * 1230);
-    var randomY = Math.round(Math.random() * 50);
     //Check if the randomX coordinate is spawning on top of another box.
     var returnBoolean: Bool = checkSpawn(randomX, positionArray);
     //If it spawns on top of another box, then we generate a new X coordinate until it no longer spawns on another box.
@@ -154,7 +150,7 @@ private function generateNewBox(){
     //Set the x-coord of the box to the randomly gen. number
     character.x = randomX;
     //Set the y-coord to 0
-    character.y = randomY;
+    character.y = 0;
 
     //Create randomly generated numbers for the equation
     var number1: String = Std.string(Math.round(Math.random() * 9));
@@ -172,7 +168,7 @@ private function generateNewBox(){
     equation.width = 50;
     equation.height = 50;
     equation.x = randomX;
-    equation.y = randomY;
+    equation.y = 0;
     //Add the new image to the array of images
     characterArray.push(character);
     //add the new equation to the array of equations
@@ -258,13 +254,12 @@ private function generateInitialTextbox(){
 
       var character: Image = new Image(Root.assets.getTexture("character1"));
       var randomX = Math.round(Math.random() * 1230);
-      var randomY = Math.round(Math.random() * 50);
       while (!checkSpawn(randomX, positionArray)) {
           randomX = Math.round(Math.random() * 1230);
           checkSpawn(randomX, positionArray);
       }
       character.x = randomX;
-      character.y = randomY;
+      character.y = 0;
       characterArray.push(character);
 
       var number1: String = Std.string(Math.round(Math.random() * 9));
@@ -281,7 +276,7 @@ private function generateInitialTextbox(){
       equation.width = 50;
       equation.height = 50;
       equation.x = randomX;
-      equation.y = randomY;
+      equation.y = 0;
       equationArray.push(equation);
 
       Starling.current.nativeOverlay.addChild(equation);
