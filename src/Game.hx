@@ -1,4 +1,7 @@
 import starling.display.Sprite;
+//For the scrolling background
+import starling.display.Sprite3D;
+
 import starling.utils.*;
 import starling.display.Image;
 import starling.core.Starling;
@@ -42,7 +45,7 @@ class Game extends Sprite {
     life = 3;
     //Create the command line input box
     textField = new flash.text.TextField();
-    textFormat = new TextFormat("Arial", 18, 0xffffff);
+    textFormat = new TextFormat("Arial", 18, 0x000000);
     textFormat.align = TextFormatAlign.LEFT;
     textField.defaultTextFormat = textFormat;
     //Accept the ability for input
@@ -61,6 +64,17 @@ class Game extends Sprite {
     //Spawn the initial textboxes
     generateInitialTextbox();
     rootSprite.addEventListener(Event.ENTER_FRAME, onFrame);
+
+    //Spawn the scrolling background
+    /*
+    var background:ScrollImage;
+    var movingSky:Sprite3D = new Sprite3D();
+    movingSky.x = 0;
+    movingSky.y = 0;
+    movingSky.rotationY = -Math.PI / 2 + Math.PI / 2014;
+    movingSky.z = 0;
+    movingSky.addChild(background);*/
+
   }
 public function keyDown(event:KeyboardEvent ){
   var keycode = event.keyCode;

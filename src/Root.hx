@@ -22,6 +22,11 @@ class Root extends Sprite {
     assets.enqueue("../assets/GameOver.png");
     assets.enqueue("../assets/Replay.png");
 
+    //Enqueueing the background here
+    assets.textureRepeat = true;
+    assets.enqueue("../assets/background.png");
+    assets.textureRepeat = false;
+
     assets.loadQueue(function onProgress(ratio:Float) {
         if (ratio == 1) {
         // loading completed animation
