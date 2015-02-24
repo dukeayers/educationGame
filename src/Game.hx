@@ -105,28 +105,29 @@ public function keyDown(event:KeyboardEvent ){
           //If variable a plus variable b equal the input then we remove items
           if (Std.string(a + b) == textField.text) {
               //Remove the specified character from the stage            
-              rootSprite.removeChild(characterArray[counter]);
+              rootSprite.removeChild(characterArray[counter], true);
               //Remove that same character from the array using a splice method
-              characterArray.splice(counter, 1);
+              characterArray = null;
               //Remove the equation from the stage
               Starling.current.nativeOverlay.removeChild(equationArray[counter]);
               //Remove the same equation from that array
-              equationArray.splice(counter, 1);
+              equationArray= null;
               //Remove the position of that character/equation from the array
-              positionArray.splice(counter, 1);
+              positionArray= null;
               //Increment score by 10
               totalScore += 10;
               //Generate a new box
+               if(characterArray.length <= 20){
               generateNewBox();
               //increment the newGenerate variable
               newGenerate++;
               //For every 8th box removed, we will add another box (essentially increasing the difficulty)
-              if (newGenerate == 8) {
+              if (newGenerate == 3) {
                   generateNewBox();
                   //reset the variable to 0
                   newGenerate = 0;
-              }
-
+               }
+            }
           }
           //Increment the counter at the end of each iteration of the for loop
           counter++;
@@ -142,6 +143,7 @@ private function generateNewBox(){
     var character: Image = new Image(Root.assets.getTexture("character1"));
     //Randomly generate a new point on the x-axis for the character
     var randomX = Math.round(Math.random() * 1230);
+    var randomY = Math.round(Math.random() * 50);
     //Check if the randomX coordinate is spawning on top of another box.
     var returnBoolean: Bool = checkSpawn(randomX, positionArray);
     //If it spawns on top of another box, then we generate a new X coordinate until it no longer spawns on another box.
@@ -152,7 +154,7 @@ private function generateNewBox(){
     //Set the x-coord of the box to the randomly gen. number
     character.x = randomX;
     //Set the y-coord to 0
-    character.y = 0;
+    character.y = randomY;
 
     //Create randomly generated numbers for the equation
     var number1: String = Std.string(Math.round(Math.random() * 9));
@@ -170,7 +172,7 @@ private function generateNewBox(){
     equation.width = 50;
     equation.height = 50;
     equation.x = randomX;
-    equation.y = 10;
+    equation.y = randomY;
     //Add the new image to the array of images
     characterArray.push(character);
     //add the new equation to the array of equations
@@ -188,15 +190,22 @@ private function generateNewBox(){
 private function checkSpawn(currentPosition:Int, lastPosition:Array<Int>):Bool{
   //Set a new variable equal to the current position that was passed (we don't want to lose the number)
   var positionHolder = currentPosition;
+  var counter = 0;
+  var breakLoop = false;
   //We then run a for each loop over each position in the array.
   for (lastPosition1 in lastPosition) {
       //Set a variable to determine if any of the boxes are 50pixels to the right
       var greaterThanTest = 0;
+      if(characterArray[counter].y >= 60){
+        //counter++;
+        counter+=1;
+        continue;
+      }
+      else{
       //we can first check to make sure that the current image did not have the same x-coord as any of the last positions
       if (positionHolder == lastPosition1) {
           //if so, we return false and break the loops
           return false;
-          break;
       }
       //Create a while loop to check 50 pixels to the right
       while (greaterThanTest <= 50) {
@@ -206,7 +215,6 @@ private function checkSpawn(currentPosition:Int, lastPosition:Array<Int>):Bool{
           if (positionHolder == lastPosition1) {
               //break and return false if so
               return false;
-              break;
           }
           //increment the test variable to eventually end the while loop
           greaterThanTest++;
@@ -219,13 +227,14 @@ private function checkSpawn(currentPosition:Int, lastPosition:Array<Int>):Bool{
           positionHolder--;
           if (positionHolder == lastPosition1) {
               return false;
-              break;
           }
           //increment the counter to eventually end the while loop
           lessThanTest++;
       }
+    }
       //reset the position before the next iteration of the loop
       positionHolder = currentPosition;
+      counter++;
   }
   //if we exit both loops then we return true
   //This could also be the reasoning as to why we are running O(n^2) so often
@@ -249,13 +258,13 @@ private function generateInitialTextbox(){
 
       var character: Image = new Image(Root.assets.getTexture("character1"));
       var randomX = Math.round(Math.random() * 1230);
-
+      var randomY = Math.round(Math.random() * 50);
       while (!checkSpawn(randomX, positionArray)) {
           randomX = Math.round(Math.random() * 1230);
           checkSpawn(randomX, positionArray);
       }
       character.x = randomX;
-      character.y = 0;
+      character.y = randomY;
       characterArray.push(character);
 
       var number1: String = Std.string(Math.round(Math.random() * 9));
@@ -272,7 +281,7 @@ private function generateInitialTextbox(){
       equation.width = 50;
       equation.height = 50;
       equation.x = randomX;
-      equation.y = 10;
+      equation.y = randomY;
       equationArray.push(equation);
 
       Starling.current.nativeOverlay.addChild(equation);
