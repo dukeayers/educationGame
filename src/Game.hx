@@ -58,11 +58,11 @@ class Game extends Sprite {
     textField.type = TextFieldType.INPUT;
     textField.height = 25;
     textField.x = 0;
-    textField.y = 695;
+    textField.y = 455;
     //Set the background and width
     textField.background = true;
     textField.backgroundColor = 0x50826e;
-    textField.width = 700;
+    textField.width = 960;
     Starling.current.nativeOverlay.addChild(textField);
     textField.stage.focus = textField;
     //Add event listener to check the input
@@ -125,6 +125,7 @@ public function keyDown(event:KeyboardEvent ){
                   newGenerate = 0;
                }
             }
+            continue;
           }
           //Increment the counter at the end of each iteration of the for loop
           counter++;
@@ -139,12 +140,12 @@ private function generateNewBox(){
     //Create a new variable to hold the new image being used.
     var character: Image = new Image(Root.assets.getTexture("character1"));
     //Randomly generate a new point on the x-axis for the character
-    var randomX = Math.round(Math.random() * 1230);
+    var randomX = Math.round(Math.random() * 910);
     //Check if the randomX coordinate is spawning on top of another box.
     var returnBoolean: Bool = checkSpawn(randomX, positionArray);
     //If it spawns on top of another box, then we generate a new X coordinate until it no longer spawns on another box.
     while (!returnBoolean) {
-        randomX = Math.round(Math.random() * 1230);
+        randomX = Math.round(Math.random() * 910);
         returnBoolean = checkSpawn(randomX, positionArray);
     }
     //Set the x-coord of the box to the randomly gen. number
@@ -253,9 +254,9 @@ private function generateInitialTextbox(){
   while (i <= 2) {
 
       var character: Image = new Image(Root.assets.getTexture("character1"));
-      var randomX = Math.round(Math.random() * 1230);
+      var randomX = Math.round(Math.random() * 910);
       while (!checkSpawn(randomX, positionArray)) {
-          randomX = Math.round(Math.random() * 1230);
+          randomX = Math.round(Math.random() * 910);
           checkSpawn(randomX, positionArray);
       }
       character.x = randomX;
@@ -295,7 +296,7 @@ private function generateInitialTextbox(){
         //increment the countChar (we don't necessarily have to do it here)
         countChar++;
         //check the y-coord of the box to determine if it hit the bottom of the screen
-        if (character.y <= 670) {
+        if (character.y <= 405) {
             //if it did not, then we let it continue to fall
             character.y += 1;
             //We also let the equation continue to fall
