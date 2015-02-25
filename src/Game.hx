@@ -1,5 +1,4 @@
 import starling.display.Sprite;
-//For the scrolling background
 import starling.display.Sprite3D;
 
 import starling.utils.*;
@@ -19,6 +18,8 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormatAlign;
 
+//This import is for the scrolling background
+import starling.display.*;
 
 class Game extends Sprite {
   //RootSprite for reference to the currrent stage
@@ -32,7 +33,7 @@ class Game extends Sprite {
   public var positionArray:Array<Int>; //Stores the current x-position of each box on the screen
   public var life:Int; //Determines the number of lives you have
   public var totalScore:Int; //Stores the total score, not actually implemented yet
-  public var background:ScrollImage; //The scrolling background 
+  //public var background:ScrollImage; //The scrolling background 
 
   //Creates the new instance of the Game class
   public function new(rootSprite:Sprite) {
