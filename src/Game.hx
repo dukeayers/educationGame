@@ -18,8 +18,13 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormatAlign;
 
-//This import is for the scrolling background
-import starling.display.*;
+//These imports are for the scrolling background
+import starling.events.EnterFrameEvent;
+import starling.textures.Texture;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import starling.textures.TextureSmoothing;
+import Math;
 
 class Game extends Sprite {
   //RootSprite for reference to the currrent stage
@@ -33,7 +38,38 @@ class Game extends Sprite {
   public var positionArray:Array<Int>; //Stores the current x-position of each box on the screen
   public var life:Int; //Determines the number of lives you have
   public var totalScore:Int; //Stores the total score, not actually implemented yet
-  //public var background:ScrollImage; //The scrolling background 
+  public var background:ScrollImage; //The background image
+  public var meteor:Image; //The meteors for dem equations
+
+  //DON'T WORRY ABOUT THIS
+  //This commmented out code is some test code for the background
+  /*[Embed(source="./assets/background.png")]
+  
+  private var BackgroundBitmap:Class;
+  private var _texture:Texture;
+  private var _image:Image;
+  private var _textureXOffset:Number;
+  private var _textureScrollSpeed:Int;
+
+  private function init(event:Event)
+  {
+                _texture = Texture.fromBitmap(new BackgroundBitmap());
+                _texture.repeat = true;
+                _textureXOffset = 0.0;
+                _textureScrollSpeed = 1;
+                _image = new Image(_texture);
+                addChild(_image);
+                addEventListener((EnterFrameEvent.ENTER_FRAME), gameLoop);
+        }
+
+  private function gameLoop(event:EnterFrameEvent)
+  {
+                _textureXOffset += textureScrollSpeed / _image.width;
+                _image.setTexCoords(0, new Point((0 + _textureXOffset), 0));
+                _image.setTexCoords(1, new Point((1 + _textureXOffset), 0));
+                _image.setTexCoords(2, new Point((0 + _textureXOffset), 1));
+                _image.setTexCoords(3, new Point((1 + _textureXOffset), 1));
+        }*/
 
   //Creates the new instance of the Game class
   public function new(rootSprite:Sprite) {
@@ -63,7 +99,7 @@ class Game extends Sprite {
     textField.y = 455;
     //Set the background and width
     textField.background = true;
-    textField.backgroundColor = 0x50826e;
+    textField.backgroundColor = 0xEFEFEF;
     textField.width = 960;
     Starling.current.nativeOverlay.addChild(textField);
     textField.stage.focus = textField;
@@ -71,31 +107,35 @@ class Game extends Sprite {
     textField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 
     //Spawn the initial textboxes
-    generateInitialTextbox();
     //Add an event listener to determine when a box is falling
     rootSprite.addEventListener(Event.ENTER_FRAME, onFrame);
 
-    //Spawn the scrolling background
-    /*
+    //Spawn the scrolling background 
     var movingSky:Sprite3D = new Sprite3D();
     movingSky.x = 0;
     movingSky.y = 0;
-    movingSky.rotationY = -Math.PI / 2 + Math.PI / 2014;
+    //movingSky.rotationY = -Math.PI / 2 + Math.PI / 2014;
     movingSky.z = 0;
-    movingSky.addChild(background);*/
-
+    rootSprite.addChild(movingSky);
+    background = new ScrollImage(Root.assets.getTexture("background"));
+    background.x = 0;
+    background.y = 0;
+    background.smoothing = TextureSmoothing.NONE;
+    roll_background();
+    movingSky.addChild(background);
+    generateInitialTextbox();
   }
 
-  /*//This function rolls the background
+  //This function rolls the background
   private function roll_background()
   {
-          background.scrollY = 0;
-          var speed = (3.0 / 123) * background.width;
-          Starling.juggler.tween(desert, speed, {
-                                  scrollY = 1.0,
-                                  onComplete: roll_background
-                          });
-  }*/
+          background.scrollX = 0;
+          var speed = (3.0/123)*background.width;
+          Starling.juggler.tween(background, speed, {
+                  scrollX: 1.0,
+                  onComplete: roll_background
+          });
+  }
 
   //Function will essentially check for "enter" on the command line input we made earlier
 public function keyDown(event:KeyboardEvent ){
@@ -265,7 +305,7 @@ private function generateInitialTextbox(){
   var lastXValue: Int = 0;
   while (i <= 2) {
 
-      var character: Image = new Image(Root.assets.getTexture("character1"));
+      var character: Image = new Image(Root.assets.getTexture("meteor"));
       var randomX = Math.round(Math.random() * 910);
       while (!checkSpawn(randomX, positionArray)) {
           randomX = Math.round(Math.random() * 910);
@@ -274,6 +314,7 @@ private function generateInitialTextbox(){
       character.x = randomX;
       character.y = 0;
       characterArray.push(character);
+      
 
       var number1: String = Std.string(Math.round(Math.random() * 9));
       var number2: String = Std.string(Math.round(Math.random() * 9));
@@ -288,8 +329,8 @@ private function generateInitialTextbox(){
       equation.background = false;
       equation.width = 50;
       equation.height = 50;
-      equation.x = randomX;
-      equation.y = 0;
+      equation.x = randomX + 5;
+      equation.y = 15;
       equationArray.push(equation);
 
       Starling.current.nativeOverlay.addChild(equation);
@@ -347,4 +388,31 @@ private function generateInitialTextbox(){
         }
     }
   }
+}
+class ScrollImage extends Image
+{
+        public var scrollX(default, set):Float = 0;
+        public var scrollY(default, set):Float = 0;
+
+        public function set_scrollX(value)
+        {
+                scrollX = value;
+                resolve_scroll();
+                return scrollX;
+        }
+
+        public function set_scrollY(value:Float)
+        {
+                scrollY = value;
+                resolve_scroll;
+                return scrollY;
+        }
+
+        public function resolve_scroll()
+        {
+                setTexCoords(0, new Point(scrollX, scrollY));
+                setTexCoords(1, new Point(scrollX+1, scrollY));
+                setTexCoords(3, new Point(scrollX+1, scrollY+1));
+                setTexCoords(2, new Point(scrollX, scrollY+1));
+        }
 }

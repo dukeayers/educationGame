@@ -4,6 +4,12 @@ import starling.display.Image;
 import starling.core.Starling;
 import starling.animation.Transitions;
 import starling.display.Quad;
+import starling.display.Sprite3D;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import starling.textures.TextureSmoothing;
+import starling.textures.Texture;
+
 class Root extends Sprite {
 
   public static var assets:AssetManager;
@@ -21,6 +27,7 @@ class Root extends Sprite {
     assets.enqueue("assets/character1.png");
     assets.enqueue("assets/GameOver.png");
     assets.enqueue("assets/Replay.png");
+    assets.enqueue("assets/meteor.png");
 
     //Enqueueing the background here
     assets.textureRepeat = true;
