@@ -32,6 +32,7 @@ class Game extends Sprite {
   public var positionArray:Array<Int>; //Stores the current x-position of each box on the screen
   public var life:Int; //Determines the number of lives you have
   public var totalScore:Int; //Stores the total score, not actually implemented yet
+  public var background:ScrollImage; //The scrolling background 
 
   //Creates the new instance of the Game class
   public function new(rootSprite:Sprite) {
@@ -75,7 +76,6 @@ class Game extends Sprite {
 
     //Spawn the scrolling background
     /*
-    var background:ScrollImage;
     var movingSky:Sprite3D = new Sprite3D();
     movingSky.x = 0;
     movingSky.y = 0;
@@ -84,6 +84,17 @@ class Game extends Sprite {
     movingSky.addChild(background);*/
 
   }
+
+  /*//This function rolls the background
+  private function roll_background()
+  {
+          background.scrollY = 0;
+          var speed = (3.0 / 123) * background.width;
+          Starling.juggler.tween(desert, speed, {
+                                  scrollY = 1.0,
+                                  onComplete: roll_background
+                          });
+  }*/
 
   //Function will essentially check for "enter" on the command line input we made earlier
 public function keyDown(event:KeyboardEvent ){
