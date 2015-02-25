@@ -18,13 +18,13 @@ class Root extends Sprite {
 
   public function start(startup:Startup) {
     assets = new AssetManager();
-    assets.enqueue("../assets/character1.png");
-    assets.enqueue("../assets/GameOver.png");
-    assets.enqueue("../assets/Replay.png");
+    assets.enqueue("assets/character1.png");
+    assets.enqueue("assets/GameOver.png");
+    assets.enqueue("assets/Replay.png");
 
     //Enqueueing the background here
     assets.textureRepeat = true;
-    assets.enqueue("../assets/background.png");
+    assets.enqueue("assets/background.png");
     assets.textureRepeat = false;
 
     assets.loadQueue(function onProgress(ratio:Float) {
