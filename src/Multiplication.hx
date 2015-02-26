@@ -32,7 +32,7 @@ import starling.textures.TextureSmoothing;
 import Math;
 
 
-class Game extends Sprite {
+class Multiplication extends Sprite {
   //RootSprite for reference to the currrent stage
   public var rootSprite:Sprite;
   public var equationFormat:TextFormat; //Stores the current equation in each box
@@ -44,7 +44,7 @@ class Game extends Sprite {
   public var positionArray:Array<Int>; //Stores the current x-position of each box on the screen
   public var life:Int; //Determines the number of lives you have
   public var totalScore:Int; //Stores the total score, not actually implemented yet
-  public var background:ScrollImage; //The background image
+  public var background:ScrollImage2; //The background image
   public var meteor:Image; //The meteors for dem equations
   public var scoreText:TextField; //To display dat score
   public var meteor_textures = Root.assets.getTextures("meteor"); //Getting the different meteor textures
@@ -100,7 +100,7 @@ class Game extends Sprite {
     movingSky.z = 0;
     rootSprite.addChild(movingSky);
 
-    background = new ScrollImage(Root.assets.getTexture("background"));
+    background = new ScrollImage2(Root.assets.getTexture("background"));
     background.x = 0;
     background.y = 0;
     background.smoothing = TextureSmoothing.NONE;
@@ -213,7 +213,7 @@ private function generateNewBox(){
     var equationFormat: TextFormat = new TextFormat("Arial", 18, 0xffffff);
     equation.defaultTextFormat = equationFormat;
     equation.text += number1;
-    equation.text += "+";
+    equation.text += "x";
     equation.text += number2;
     //Format the background and set all of the text formats.
     equation.background = false;
@@ -323,7 +323,7 @@ private function generateInitialTextbox(){
       var equationFormat: TextFormat = new TextFormat("Arial", 18, 0xffffff);
       equation.defaultTextFormat = equationFormat;
       equation.text += number1;
-      equation.text += "+";
+      equation.text += "x";
       equation.text += number2;
       equation.background = false;
       equation.width = 50;
@@ -344,11 +344,11 @@ private function generateInitialTextbox(){
     //Start by creating a counter that will check where we are and is used later
     var countChar = 0;
 
-    //TODO This is for the background scrolling
+    //This is for the background scrolling
     //roll_background();
-    //background.scrollX = background.scrollX;
-    //background.resolve_scroll();
-    //trace(background.scrollX);
+    background.scrollX = background.scrollX;
+    background.resolve_scroll();
+    trace(background.scrollX);
     //Iterate over all of the images in the array
     for (character in characterArray) {
         //increment the countChar (we don't necessarily have to do it here)
@@ -397,7 +397,7 @@ private function generateInitialTextbox(){
     }
   }
 }
-class ScrollImage extends Image
+class ScrollImage2 extends Image
 {
         public var scrollX(default, set):Float = 0;
         public var scrollY(default, set):Float = 0;
