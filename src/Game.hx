@@ -10,6 +10,10 @@ import starling.events.Event;
 import flash.events.KeyboardEvent;
 
 import starling.text.TextField;
+//import starling.events.KeyboardEvent;
+//import starling.events.EnterFrameEvent;
+import starling.animation.Tween;
+import starling.animation.Juggler;
 
 import flash.text.TextField;
 import flash.text.TextFormat;
@@ -26,6 +30,7 @@ import flash.geom.Rectangle;
 import starling.textures.TextureSmoothing;
 import Math;
 
+
 class Game extends Sprite {
   //RootSprite for reference to the currrent stage
   public var rootSprite:Sprite;
@@ -40,36 +45,9 @@ class Game extends Sprite {
   public var totalScore:Int; //Stores the total score, not actually implemented yet
   public var background:ScrollImage; //The background image
   public var meteor:Image; //The meteors for dem equations
+  public var scoreText:TextField; //To display dat score
+  public var meteor_textures = Root.assets.getTextures("meteor"); //Getting the different meteor textures
 
-  //DON'T WORRY ABOUT THIS
-  //This commmented out code is some test code for the background
-  /*[Embed(source="./assets/background.png")]
-  
-  private var BackgroundBitmap:Class;
-  private var _texture:Texture;
-  private var _image:Image;
-  private var _textureXOffset:Number;
-  private var _textureScrollSpeed:Int;
-
-  private function init(event:Event)
-  {
-                _texture = Texture.fromBitmap(new BackgroundBitmap());
-                _texture.repeat = true;
-                _textureXOffset = 0.0;
-                _textureScrollSpeed = 1;
-                _image = new Image(_texture);
-                addChild(_image);
-                addEventListener((EnterFrameEvent.ENTER_FRAME), gameLoop);
-        }
-
-  private function gameLoop(event:EnterFrameEvent)
-  {
-                _textureXOffset += textureScrollSpeed / _image.width;
-                _image.setTexCoords(0, new Point((0 + _textureXOffset), 0));
-                _image.setTexCoords(1, new Point((1 + _textureXOffset), 0));
-                _image.setTexCoords(2, new Point((0 + _textureXOffset), 1));
-                _image.setTexCoords(3, new Point((1 + _textureXOffset), 1));
-        }*/
 
   //Creates the new instance of the Game class
   public function new(rootSprite:Sprite) {
@@ -112,27 +90,42 @@ class Game extends Sprite {
 
     //Spawn the scrolling background 
     var movingSky:Sprite3D = new Sprite3D();
-    movingSky.x = 0;
+    movingSky.x = -4;
     movingSky.y = 0;
     //movingSky.rotationY = -Math.PI / 2 + Math.PI / 2014;
     movingSky.z = 0;
     rootSprite.addChild(movingSky);
+
     background = new ScrollImage(Root.assets.getTexture("background"));
     background.x = 0;
     background.y = 0;
     background.smoothing = TextureSmoothing.NONE;
     roll_background();
     movingSky.addChild(background);
+
+    //Generating initial textbox after background because it works that way
     generateInitialTextbox();
+
+    //TODO Setting up the score
+    /*
+    scoreText = new TextField(50, 50, "0", "System", 6, 0x000993);
+    scoreText.x = 72;
+    scoreText.y = -2;
+    scoreText.hAlign = starling.utils.HAlign.RIGHT;
+    scoreText.vAlign = starling.utils.VALIGN.TOP;
+    rootSprite.addChild(scoreText);
+    scoreText.redraw();
+    cast(scoreText.getChildAt(0), Image).smoothing = TextureSmoothing.NONE;
+    */
   }
 
   //This function rolls the background
-  private function roll_background()
+  public function roll_background()
   {
           background.scrollX = 0;
           var speed = (3.0/123)*background.width;
           Starling.juggler.tween(background, speed, {
-                  scrollX: 1.0,
+                  scrollX: 0.0,
                   onComplete: roll_background
           });
   }
@@ -189,8 +182,10 @@ public function keyDown(event:KeyboardEvent ){
 
 //The following functions will generate new boxes
 private function generateNewBox(){
+    
     //Create a new variable to hold the new image being used.
-    var character: Image = new Image(Root.assets.getTexture("character1"));
+    var character: Image = new Image(meteor_textures[Std.random(meteor_textures.length)]);
+
     //Randomly generate a new point on the x-axis for the character
     var randomX = Math.round(Math.random() * 910);
     //Check if the randomX coordinate is spawning on top of another box.
@@ -220,8 +215,8 @@ private function generateNewBox(){
     equation.background = false;
     equation.width = 50;
     equation.height = 50;
-    equation.x = randomX;
-    equation.y = 0;
+    equation.x = randomX + 5;
+    equation.y = 15;
     //Add the new image to the array of images
     characterArray.push(character);
     //add the new equation to the array of equations
@@ -305,7 +300,7 @@ private function generateInitialTextbox(){
   var lastXValue: Int = 0;
   while (i <= 2) {
 
-      var character: Image = new Image(Root.assets.getTexture("meteor"));
+      var character: Image = new Image(meteor_textures[Std.random(meteor_textures.length)]);
       var randomX = Math.round(Math.random() * 910);
       while (!checkSpawn(randomX, positionArray)) {
           randomX = Math.round(Math.random() * 910);
@@ -381,6 +376,9 @@ private function generateInitialTextbox(){
                 Starling.current.nativeOverlay.removeChildren();
                 //Send a message notifying their loss
                 trace("You Lose. Total Score: " + totalScore);
+
+                //TODO This displays the score and updates it and all that
+                //scoreText.text = "" + totalScore;
                 //Then generate the end screen
                 var gotoend = new EndGame(rootSprite);
                 gotoend.start();

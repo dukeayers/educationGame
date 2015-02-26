@@ -27,7 +27,12 @@ class Root extends Sprite {
     assets.enqueue("assets/character1.png");
     assets.enqueue("assets/GameOver.png");
     assets.enqueue("assets/Replay.png");
-    assets.enqueue("assets/meteor.png");
+    assets.enqueue("assets/meteor1.png");
+    assets.enqueue("assets/meteor2.png");
+    assets.enqueue("assets/meteor3.png");
+    assets.enqueue("assets/meteor4.png");
+    assets.enqueue("assets/meteor5.png");
+    assets.enqueue("assets/meteor6.png");
 
     //Enqueueing the background here
     assets.textureRepeat = true;
