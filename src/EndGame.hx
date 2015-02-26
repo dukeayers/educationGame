@@ -35,7 +35,7 @@ class EndGame extends Sprite {
     var keycode = event.keyCode;
   if(keycode == 13){
     rootSprite.removeChildren();
-    var newGame = new Game(rootSprite);
+    var newGame = new Main(rootSprite);
     newGame.start();
   }
   }
@@ -44,7 +44,7 @@ class EndGame extends Sprite {
     if(touch != null){
       if(touch.phase == TouchPhase.BEGAN) {
         rootSprite.removeChildren();
-        var newGame = new Game(rootSprite);
+        var newGame = new Main(rootSprite);
         newGame.start();
       }
     }

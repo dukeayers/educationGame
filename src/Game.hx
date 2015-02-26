@@ -300,7 +300,7 @@ private function generateInitialTextbox(){
   equationArray = new Array();
   //Initialize the array that will hold the x-coords
   positionArray = new Array();
-
+  
   var lastXValue: Int = 0;
   while (i <= 2) {
 
@@ -343,6 +343,11 @@ private function generateInitialTextbox(){
   private function onFrame(e: Event) {
     //Start by creating a counter that will check where we are and is used later
     var countChar = 0;
+
+    //This is for the background scrolling
+    roll_background();
+    background.scrollX = background.scrollX;
+    trace(background.scrollX);
     //Iterate over all of the images in the array
     for (character in characterArray) {
         //increment the countChar (we don't necessarily have to do it here)
