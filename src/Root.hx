@@ -9,6 +9,8 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import starling.textures.TextureSmoothing;
 import starling.textures.Texture;
+import flash.media.SoundChannel;
+
 
 class Root extends Sprite {
 
@@ -37,6 +39,9 @@ class Root extends Sprite {
     assets.enqueue("assets/meteor4.png");
     assets.enqueue("assets/meteor5.png");
     assets.enqueue("assets/meteor6.png");
+    
+    assets.enqueue("assets/startmusic.mp3");
+    assets.enqueue("assets/bgmusic.mp3");
 
     //Enqueueing the background here
     assets.textureRepeat = true;

@@ -7,6 +7,7 @@ import starling.display.Quad;
 import starling.events.Event;
 import starling.events.KeyboardEvent;
 import starling.events.*;
+import flash.media.SoundChannel;
 
 class Main extends Sprite {
   public var rootSprite:Sprite;
@@ -20,6 +21,7 @@ class Main extends Sprite {
   }
 
   public function start() {
+    Root.assets.playSound("startmusic");
     mainMenu = new Image(Root.assets.getTexture('mainMenu'));
     mainMenu.x = 0;
     mainMenu.y = 0;
@@ -51,6 +53,7 @@ class Main extends Sprite {
     var keycode = event.keyCode;
   if(keycode == 13){
     rootSprite.removeChildren();
+    Root.assets.removeSound("startmusic");
     var game = new Game(rootSprite);
     game.start();
   }
@@ -60,6 +63,7 @@ class Main extends Sprite {
     if(touch != null){
       if(touch.phase == TouchPhase.BEGAN) {
         rootSprite.removeChildren();
+        Root.assets.removeSound("startmusic");
         var game = new Game(rootSprite);
         game.start();
       }
