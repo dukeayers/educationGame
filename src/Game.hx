@@ -8,6 +8,7 @@ import starling.animation.Transitions;
 import starling.display.Quad;
 import starling.events.Event;
 import flash.events.KeyboardEvent;
+import flash.media.SoundChannel;
 
 import starling.text.TextField;
 //import starling.events.KeyboardEvent;
@@ -47,6 +48,8 @@ class Game extends Sprite {
   public var meteor:Image; //The meteors for dem equations
   public var scoreText:TextField; //To display dat score
   public var meteor_textures = Root.assets.getTextures("meteor"); //Getting the different meteor textures
+  public var bgmusic:SoundChannel;
+  public var startmusic:SoundChannel;
 
 
   //Creates the new instance of the Game class
@@ -57,6 +60,7 @@ class Game extends Sprite {
 
   //Starts the game
   public function start() {
+    Root.assets.playSound("bgmusic");
     newGenerate = 0; //Initialize to 0 for start
     totalScore = 0; //Set total score to 0
     life = 3; //set # off lives to 3
