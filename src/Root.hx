@@ -26,7 +26,11 @@ class Root extends Sprite {
     assets = new AssetManager();
     assets.enqueue("assets/character1.png");
     assets.enqueue("assets/GameOver.png");
+    assets.enqueue("assets/mainMenu.png");
     assets.enqueue("assets/Replay.png");
+    assets.enqueue("assets/addition.png");
+    assets.enqueue("assets/subtraction.png");
+    assets.enqueue("assets/multiplication.png");
     assets.enqueue("assets/meteor1.png");
     assets.enqueue("assets/meteor2.png");
     assets.enqueue("assets/meteor3.png");
@@ -46,8 +50,8 @@ class Root extends Sprite {
         Starling.juggler.tween(startup.loadingBitmap, 2.0, {transition:Transitions.EASE_OUT, delay:0, alpha: 0, onComplete: function(){
             // cleaning up the loadingScreen after it has already faded 
             startup.removeChild(startup.loadingBitmap);
-              var game = new Game(rootSprite);
-              game.start();
+              var main = new Main(rootSprite);
+              main.start();
             
         }});
 
