@@ -25,7 +25,7 @@ class EndGame extends Sprite {
 
     endReplay = new Image(Root.assets.getTexture('Replay'));
     endReplay.addEventListener("touch", keyDown2);
-    endReplay.x = 580;
+    endReplay.x = 420;
     endReplay.y = 360;
     rootSprite.addChild(endReplay);
     // endReplay.addEventListener(TouchEvent.TOUCH, keyDown2);
