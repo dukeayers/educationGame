@@ -132,7 +132,7 @@ class Multiplication extends Sprite {
           background.scrollX = 0;
           var speed = (3.0/123)*background.width;
           Starling.juggler.tween(background, speed, {
-                  scrollX: 0.0,
+                  scrollX: 1.0,
                   onComplete: roll_background
           });
   }
@@ -351,7 +351,7 @@ private function generateInitialTextbox(){
     //This is for the background scrolling
     //roll_background();
     background.scrollX = background.scrollX;
-    background.resolve_scroll();
+    //background.resolve_scroll();
     //Iterate over all of the images in the array
     for (character in characterArray) {
         //increment the countChar (we don't necessarily have to do it here)
