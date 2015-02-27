@@ -50,8 +50,6 @@ class Main extends Sprite {
     credits.addEventListener("touch", creditsFunc);
     credits.x = 960 - credits.width;
     credits.y = 0;
-    credits.scaleX = 0.8;
-    credits.scaleY = 0.8;
     rootSprite.addChild(credits);
 
     rootSprite.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
@@ -121,7 +119,7 @@ class Main extends Sprite {
                   {
                           rootSprite.removeChildren();
                           Root.assets.removeSound("startmusic");
-                          var game = new Main(rootSprite);
+                          var game = new Credits(rootSprite);
                           game.start();
                   }
           }
