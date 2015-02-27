@@ -28,16 +28,6 @@ class EndGame extends Sprite {
     endReplay.x = 420;
     endReplay.y = 360;
     rootSprite.addChild(endReplay);
-    // endReplay.addEventListener(TouchEvent.TOUCH, keyDown2);
-    rootSprite.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-  }
-  private function keyDown(event:KeyboardEvent){
-    var keycode = event.keyCode;
-  if(keycode == 13){
-    rootSprite.removeChildren();
-    var newGame = new Main(rootSprite);
-    newGame.start();
-  }
   }
   private function keyDown2(e:TouchEvent){
      var touch:Touch = e.getTouch(rootSprite);

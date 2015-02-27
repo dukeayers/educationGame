@@ -152,7 +152,7 @@ public function keyDown(event:KeyboardEvent ){
           //Set the second number to the variable b
           var b: Int = Std.parseInt(containWords[2]);
           //If variable a plus variable b equal the input then we remove items
-          if (Std.string(a + b) == textField.text) {
+          if (Std.string(a * b) == textField.text) {
               //Remove the specified character from the stage            
               rootSprite.removeChild(characterArray[counter], true);
               //Remove that same character from the array using a splice method
@@ -348,7 +348,6 @@ private function generateInitialTextbox(){
     //roll_background();
     background.scrollX = background.scrollX;
     background.resolve_scroll();
-    trace(background.scrollX);
     //Iterate over all of the images in the array
     for (character in characterArray) {
         //increment the countChar (we don't necessarily have to do it here)

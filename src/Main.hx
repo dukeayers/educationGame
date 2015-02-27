@@ -52,17 +52,17 @@ class Main extends Sprite {
     credits.y = 0;
     rootSprite.addChild(credits);
 
-    rootSprite.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+    //rootSprite.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
   }
-  private function keyDown(event:KeyboardEvent){
-    var keycode = event.keyCode;
-  if(keycode == 13){
-    rootSprite.removeChildren();
-    Root.assets.removeSound("startmusic");
-    var game = new Game(rootSprite);
-    game.start();
-  }
-  }
+  // private function keyDown(event:KeyboardEvent){
+  //   var keycode = event.keyCode;
+  // if(keycode == 13){
+  //   rootSprite.removeChildren();
+  //   Root.assets.removeSound("startmusic");
+  //   var game = new Game(rootSprite);
+  //   game.start();
+  // }
+  // }
   private function addFunc(e:TouchEvent)
   {
      var touch:Touch = e.getTouch(rootSprite);
