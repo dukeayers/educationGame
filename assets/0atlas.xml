@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:f2bbe33d81cf72755bf2b42763c4811d:c547a39150059caca60086555b6979ef:128bada3685806109e6d885122caf7e9$ -->
+<TextureAtlas imagePath="assetSheet0.png">
+    <SubTexture name="GameOver(original)" x="2" y="2" width="1280" height="720"/>
+    <SubTexture name="GameOver" x="2" y="724" width="960" height="540"/>
+    <SubTexture name="Replay" x="1722" y="198" width="100" height="40"/>
+    <SubTexture name="addition" x="1284" y="2" width="232" height="94"/>
+    <SubTexture name="background" x="964" y="724" width="1024" height="512"/>
+    <SubTexture name="character1" x="1904" y="96" width="50" height="50"/>
+    <SubTexture name="credits" x="1752" y="96" width="150" height="100"/>
+    <SubTexture name="creditsScreen" x="2" y="1266" width="960" height="480"/>
+    <SubTexture name="mainMenu" x="964" y="1238" width="960" height="540"/>
+    <SubTexture name="menuButton" x="1518" y="97" width="150" height="100"/>
+    <SubTexture name="meteor1" x="1904" y="148" width="50" height="50"/>
+    <SubTexture name="meteor2" x="1927" y="200" width="48" height="46" frameX="-2" frameY="-4" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="meteor3" x="1670" y="97" width="50" height="50"/>
+    <SubTexture name="meteor4" x="1876" y="200" width="49" height="49" frameX="-1" frameY="0" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="meteor5" x="1670" y="149" width="50" height="50"/>
+    <SubTexture name="meteor6" x="1824" y="198" width="50" height="50"/>
+    <SubTexture name="multiplication" x="1752" y="2" width="231" height="92"/>
+    <SubTexture name="subtraction" x="1518" y="2" width="232" height="93"/>
+</TextureAtlas>

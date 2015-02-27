@@ -27,10 +27,18 @@ class Root extends Sprite {
   public function start(startup:Startup) {
     assets = new AssetManager();
     //Enqueueing the background here
+
+
+    assets.enqueue("assets/0atlas.xml");
+    assets.enqueue("assets/1atlas.xml");
+
+    assets.enqueue("assets/assetSheet0.png");
+    assets.enqueue("assets/assetSheet1.png");
+
     assets.textureRepeat = true;
     assets.enqueue("assets/background.png");
     assets.textureRepeat = false;
-
+    /*
     assets.enqueue("assets/character1.png");
     assets.enqueue("assets/GameOver.png");
     assets.enqueue("assets/mainMenu.png");
@@ -47,7 +55,7 @@ class Root extends Sprite {
     assets.enqueue("assets/credits.png");
     assets.enqueue("assets/creditsScreen.png");
     assets.enqueue("assets/menuButton.png");
-    
+    */
     assets.enqueue("assets/startmusic.mp3");
     assets.enqueue("assets/bgmusic.mp3");
     assets.enqueue("assets/correct.mp3");
