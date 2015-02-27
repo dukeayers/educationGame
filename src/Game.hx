@@ -50,6 +50,7 @@ class Game extends Sprite {
   public var meteor_textures = Root.assets.getTextures("meteor"); //Getting the different meteor textures
   public var bgmusic:SoundChannel;
   public var startmusic:SoundChannel;
+  public var backgroundWorkaround:Quad;
 
 
   //Creates the new instance of the Game class
@@ -61,6 +62,12 @@ class Game extends Sprite {
   //Starts the game
   public function start() {
     Root.assets.playSound("bgmusic");
+
+    //Workaround for the line in the scrolling background
+    backgroundWorkaround = new Quad(960, 480, 0x000000);
+    rootSprite.addChild(backgroundWorkaround);
+
+
     newGenerate = 0; //Initialize to 0 for start
     totalScore = 0; //Set total score to 0
     life = 3; //set # off lives to 3
@@ -94,7 +101,7 @@ class Game extends Sprite {
 
     //Spawn the scrolling background 
     var movingSky:Sprite3D = new Sprite3D();
-    movingSky.x = -4;
+    movingSky.x = 0;
     movingSky.y = 0;
     //movingSky.rotationY = -Math.PI / 2 + Math.PI / 2014;
     movingSky.z = 0;
@@ -129,7 +136,7 @@ class Game extends Sprite {
           background.scrollX = 0;
           var speed = (3.0/123)*background.width;
           Starling.juggler.tween(background, speed, {
-                  scrollX: 0.0,
+                  scrollX: 1.0,
                   onComplete: roll_background
           });
   }
@@ -346,7 +353,7 @@ private function generateInitialTextbox(){
 
     //TODO This is for the background scrolling
     //roll_background();
-    //background.scrollX = background.scrollX;
+    background.scrollX = background.scrollX;
     //background.resolve_scroll();
     //trace(background.scrollX);
     //Iterate over all of the images in the array
