@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:f2bbe33d81cf72755bf2b42763c4811d:c547a39150059caca60086555b6979ef:128bada3685806109e6d885122caf7e9$ -->
+<TextureAtlas imagePath="assetSheet1.png">
+    <SubTexture name="loading" x="2" y="2" width="958" height="478"/>
+</TextureAtlas>
