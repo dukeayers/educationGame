@@ -50,6 +50,9 @@ class Game extends Sprite {
   public var meteor_textures = Root.assets.getTextures("meteor"); //Getting the different meteor textures
   public var bgmusic:SoundChannel;
   public var startmusic:SoundChannel;
+  public var correct:SoundChannel;
+  public var gameOver:SoundChannel;
+  public var fail:SoundChannel;
   public var backgroundWorkaround:Quad;
 
 
@@ -168,6 +171,7 @@ public function keyDown(event:KeyboardEvent ){
              equationArray.splice(counter, 1);
              positionArray.splice(counter, 1);
               //Increment score by 10
+              Root.assets.playSound("correct");
               totalScore += 10;
               //Generate a new box
                if(characterArray.length <= 20){
@@ -380,6 +384,7 @@ private function generateInitialTextbox(){
             //remove its position from the array
             positionArray.splice(countChar - 1, 1);
             //Decrement the # of lives
+            Root.assets.playSound("fail");
             life--;
             //check if we ran out of lives
             if (life == 0) {
@@ -392,8 +397,9 @@ private function generateInitialTextbox(){
                 //remove all flash objects on teh stage
                 Starling.current.nativeOverlay.removeChildren();
                 //Send a message notifying their loss
+                Root.assets.playSound("gameOver");
                 trace("You Lose. Total Score: " + totalScore);
-
+                
                 //TODO This displays the score and updates it and all that
                 //scoreText.text = "" + totalScore;
                 //Then generate the end screen
